@@ -2,6 +2,14 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
+const shelfTypes = {
+  currentlyReading: "Currently Reading",
+  wantToRead: "Want to Read",
+  read: "Read",
+  none: "None"
+};
+
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -37,10 +45,7 @@ class BooksApp extends React.Component {
                 <div className="book-shelf-changer">
                   <select>
                     <option value="move" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
+                    { Object.entries(shelfTypes).map(([key,value],i) => <option key={i} value={key}>{value}</option>) }
                   </select>
                 </div>
               </div>
