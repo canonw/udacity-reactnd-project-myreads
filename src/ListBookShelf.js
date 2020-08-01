@@ -15,6 +15,7 @@ const ListBookShelf = props => {
           {
             books.map((book) => <ListBook key={ book.id }
               book={ book }
+              shelf={ shelf }
               shelfOptions={ shelfOptions }/>)
           }
           </ol>

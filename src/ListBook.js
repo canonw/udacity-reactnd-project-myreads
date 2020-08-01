@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 const ListBook = props => {
 
-  const { book, shelfOptions } = props;
+  const { book, shelf, shelfOptions } = props;
+
+  let OptionTemplate = Object.keys(shelfOptions)
+    .filter(currentShelf => currentShelf !== shelf)
+    .map((key) => <option key={key} value={key}>{shelfOptions[key]}</option>)
 
   return (
     <li key={ props.book.id }>
@@ -14,7 +18,7 @@ const ListBook = props => {
             <div className="book-shelf-changer">
               <select>
                 <option value="move" disabled>Move to...</option>
-                { Object.entries(shelfOptions).map(([key,value],i) => <option key={i} value={key}>{value}</option>) }
+                { OptionTemplate }
               </select>
             </div>
           </div>
@@ -28,6 +32,7 @@ const ListBook = props => {
 
 ListBook.propTypes = {
   book: PropTypes.object.isRequired,
+  shelf: PropTypes.string.isRequired,
   shelfOptions: PropTypes.object.isRequired,
 };
 
