@@ -25,7 +25,20 @@ class BooksApp extends React.Component {
     shelves: {}
   }
 
-  componentDidMount() {
+  changeShelf(event, book) {
+
+    const newShelf = event.target.value;
+    const currShelf = book.shelf;
+    const bookId = book.id;
+    console.log(`${newShelf} ${currShelf} ${bookId}`);
+    // ContactsAPI.create(contact).then(contact => {
+    //   this.setState(state => ({
+    //     contacts: state.contacts.concat([ contact ])
+    //   }))
+    // })
+  };
+
+componentDidMount() {
     if (!Array.isArray(this.state.books)) {
       BooksAPI.getAll()
         .then((books) => {
@@ -41,7 +54,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-
     const { shelves } = this.state;
 
     return (
@@ -53,7 +65,9 @@ class BooksApp extends React.Component {
           <div className="list-books-content">
             {
               Object.entries(shelves)
-                .map(([key,value]) => <ListBookShelf key={key} books={value}
+                .map(([key,value]) => <ListBookShelf key={key}
+                  onChangeShelf={this.changeShelf}
+                  books={value}
                   shelf={key}
                   shelfOptions={shelfOptions} />)
             }

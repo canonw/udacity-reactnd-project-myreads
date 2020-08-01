@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListBook from './ListBook';
 
+
 const ListBookShelf = props => {
 
   const { books, shelf, shelfOptions } = props;
+
+  const changeShelf = props.onChangeShelf;
 
   return (
     <div>
@@ -14,6 +17,7 @@ const ListBookShelf = props => {
           <ol className="books-grid">
           {
             books.map((book) => <ListBook key={ book.id }
+              onChangeShelf={ changeShelf }
               book={ book }
               shelf={ shelf }
               shelfOptions={ shelfOptions }/>)
@@ -27,6 +31,7 @@ const ListBookShelf = props => {
 
 ListBookShelf.propTypes = {
   books: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func.isRequired, 
   shelf: PropTypes.string.isRequired,
   shelfOptions: PropTypes.object.isRequired,
 };

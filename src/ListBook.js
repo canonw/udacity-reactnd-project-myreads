@@ -5,9 +5,16 @@ const ListBook = props => {
 
   const { book, shelf, shelfOptions } = props;
 
+  // const changeShelf = props.onChangeShelf;
+
+  // const changeShelf = (event) => {
+  //   console.log(event.target.value);
+  //   props.onChangeShelf(event);
+  // };
+
   let OptionTemplate = Object.keys(shelfOptions)
     .filter(currentShelf => currentShelf !== shelf)
-    .map((key) => <option key={key} value={key}>{shelfOptions[key]}</option>)
+    .map((key) => <option key={key} value={key} >{shelfOptions[key]}</option>)
 
   return (
     <li key={ props.book.id }>
@@ -16,7 +23,7 @@ const ListBook = props => {
           <div className="book-cover"
             style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.thumbnail })` }}>
             <div className="book-shelf-changer">
-              <select>
+              <select onChange={(event) => props.onChangeShelf(event, book) }>
                 <option value="move" disabled>Move to...</option>
                 { OptionTemplate }
               </select>
@@ -32,6 +39,7 @@ const ListBook = props => {
 
 ListBook.propTypes = {
   book: PropTypes.object.isRequired,
+  onChangeShelf: PropTypes.func.isRequired, 
   shelf: PropTypes.string.isRequired,
   shelfOptions: PropTypes.object.isRequired,
 };
