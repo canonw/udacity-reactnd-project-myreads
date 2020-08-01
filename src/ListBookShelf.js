@@ -23,18 +23,6 @@ const ListBookShelf = props => {
     </div>
   );
 };
-    //       <div className="list-books-content">
-    //         <div>
-    //           <div className="bookshelf">
-    //             <h2 className="bookshelf-title">Currently Reading TBD</h2>
-    //             <div className="bookshelf-books">
-    //               <ol className="books-grid">
-    //               { ListTemplate }
-    //               </ol>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
 
 ListBookShelf.propTypes = {
   books: PropTypes.array.isRequired,
