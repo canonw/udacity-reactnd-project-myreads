@@ -1,8 +1,9 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import ListBookShelves from './ListBookShelves'
 
-const shelfTypes = {
+const shelfOptions = {
   currentlyReading: "Currently Reading",
   wantToRead: "Want to Read",
   read: "Read",
@@ -41,32 +42,7 @@ class BooksApp extends React.Component {
 
   render() {
 
-    const { books } = this.state;
-
-    let ListTemplate;
-    if (Array.isArray(books) && books.length) {
-      ListTemplate = books.map((book) =>
-        <li key={book.id}>
-          <div className="book">
-            <div className="book-top">
-              <div className="book-cover"
-                style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.thumbnail })` }}>
-                <div className="book-shelf-changer">
-                  <select>
-                    <option value="move" disabled>Move to...</option>
-                    { Object.entries(shelfTypes).map(([key,value],i) => <option key={i} value={key}>{value}</option>) }
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className="book-title">{ book.title }</div>
-            <div className="book-authors">{ book.authors.join(', ') }</div>
-          </div>
-        </li>
-      );
-    } else {
-      ListTemplate = <li>No Book Found </li>;
-    }
+    const { books, shelves } = this.state;
 
     return (
       <div className="app">
@@ -75,20 +51,63 @@ class BooksApp extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            <div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading TBD</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                  { ListTemplate }
-                  </ol>
-                </div>
-              </div>
-            </div>
+            {
+              Object.entries(shelves)
+                .map(([key,value]) => <ListBookShelves books={value}
+                  shelf={key}
+                  shelfOptions={shelfOptions} />)
+            }
           </div>
         </div>
       </div>
     );
+
+    // let ListTemplate;
+    // if (Array.isArray(books) && books.length) {
+    //   ListTemplate = books.map((book) =>
+    //     <li key={book.id}>
+    //       <div className="book">
+    //         <div className="book-top">
+    //           <div className="book-cover"
+    //             style={{ width: 128, height: 193, backgroundImage: `url(${ book.imageLinks.thumbnail })` }}>
+    //             <div className="book-shelf-changer">
+    //               <select>
+    //                 <option value="move" disabled>Move to...</option>
+    //                 { Object.entries(shelfOptions).map(([key,value],i) => <option key={i} value={key}>{value}</option>) }
+    //               </select>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="book-title">{ book.title }</div>
+    //         <div className="book-authors">{ book.authors.join(', ') }</div>
+    //       </div>
+    //     </li>
+    //   );
+    // } else {
+    //   ListTemplate = <li>No Book Found </li>;
+    // }
+
+    // return (
+    //   <div className="app">
+    //     <div className="list-books">
+    //       <div className="list-books-title">
+    //         <h1>MyReads</h1>
+    //       </div>
+    //       <div className="list-books-content">
+    //         <div>
+    //           <div className="bookshelf">
+    //             <h2 className="bookshelf-title">Currently Reading TBD</h2>
+    //             <div className="bookshelf-books">
+    //               <ol className="books-grid">
+    //               { ListTemplate }
+    //               </ol>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
