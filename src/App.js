@@ -9,7 +9,6 @@ const shelfTypes = {
   none: "None"
 };
 
-
 class BooksApp extends React.Component {
   state = {
     /**
@@ -20,13 +19,23 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     
-    books: {}
+    books: {},
+
+    shelves: {}
   }
 
   componentDidMount() {
     if (!Array.isArray(this.state.books)) {
       BooksAPI.getAll()
-        .then((data) => this.setState({ books: data }));
+        .then((books) => {
+
+          let shelves = books.reduce((r, a) => {
+            r[a.shelf] = [...r[a.shelf] || [], a];
+            return r;
+          }, {});
+
+          this.setState({ books: books, shelves: shelves });
+      });
     }
   }
 
@@ -52,7 +61,6 @@ class BooksApp extends React.Component {
             </div>
             <div className="book-title">{ book.title }</div>
             <div className="book-authors">{ book.authors.join(', ') }</div>
-            <div>{book.shelf}</div>
           </div>
         </li>
       );
