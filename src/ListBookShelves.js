@@ -14,7 +14,6 @@ const ListBookShelves = props => {
   const { books, onHandleChangeSelf } = props;
 
   return (
-    <div className="app">
     <div className="list-books">
       <div className="list-books-title">
         <h1>MyReads</h1>
@@ -59,8 +58,6 @@ const ListBookShelves = props => {
 
       </div>
     </div>
-    </div>
-
   );
 };
 
