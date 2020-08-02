@@ -16,9 +16,16 @@ class BooksApp extends React.Component {
     books: [],
   }
 
-  handleChangeSelf(book, shelf) {
-    console.log(book);
-    console.log(shelf);
+  handleChangeSelf = (book, shelf) => {
+    // console.log(book);
+    // console.log(shelf);
+    // console.log(this.state);
+    BooksAPI.update(book, shelf)
+      .then(() => {
+        let newBook = book;
+        newBook.shelf = shelf;
+        this.setState((state) => ({ books: state.books.filter(f => f.id !== book.id).concat(newBook) }))
+      })
   };
 
   componentDidMount() {
