@@ -5,6 +5,13 @@ import './App.css'
 import ListBookShelves from './ListBookShelves'
 import SearchBooks from './SearchBooks'
 
+const shelfOptions = {
+  currentlyReading: "Currently Reading",
+  wantToRead: "Want to Read",
+  read: "Read",
+  none: "None"
+};
+
 class BooksApp extends React.Component {
   state = {
     books: [],
@@ -38,11 +45,15 @@ class BooksApp extends React.Component {
           <Route exact path='/' render={() => (
             <ListBookShelves
               books={ books }
+              shelfOptions={ shelfOptions }
               onHandleChangeSelf={ this.handleChangeSelf }/>
             )} />
 
           <Route exact path='/search' render={() => (
-            <SearchBooks />
+            <SearchBooks
+              books={ books }
+              shelfOptions={ shelfOptions }
+              onHandleChangeSelf={ this.handleChangeSelf }/>
             )} />
 
         </div>

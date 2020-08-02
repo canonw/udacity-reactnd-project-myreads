@@ -1,17 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ListBooks from './ListBooks'
 
-const shelfOptions = {
-  currentlyReading: "Currently Reading",
-  wantToRead: "Want to Read",
-  read: "Read",
-  none: "None"
-};
-
 const ListBookShelves = props => {
 
-  const { books, onHandleChangeSelf } = props;
+  const { books, onHandleChangeSelf, shelfOptions } = props;
 
   return (
     <div className="list-books">
@@ -50,13 +44,19 @@ const ListBookShelves = props => {
           <div className="bookshelf-books">
             <ol className="books-grid">
               <ListBooks books={ books.filter(b => b.shelf === "read")}
-                shelf="read" shelfOptions={ shelfOptions } onHandleChangeSelf={ onHandleChangeSelf }/>
+                shelf="read"
+                shelfOptions={ shelfOptions }
+                onHandleChangeSelf={ onHandleChangeSelf }/>
             </ol>
           </div>
         </div>
       </div>
 
       </div>
+      <div className="open-search">
+        <Link to='/search' >Add a book</Link>
+      </div>
+
     </div>
   );
 };
@@ -64,6 +64,7 @@ const ListBookShelves = props => {
 ListBookShelves.propTypes = {
   books: PropTypes.array.isRequired,
   onHandleChangeSelf: PropTypes.func.isRequired,
+  shelfOptions: PropTypes.object.isRequired,
 };
 
 export default ListBookShelves;
