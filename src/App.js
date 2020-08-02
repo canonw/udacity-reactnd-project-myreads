@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBookShelves from './ListBookShelves'
+import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
   state = {
@@ -38,6 +39,10 @@ class BooksApp extends React.Component {
             <ListBookShelves
               books={ books }
               onHandleChangeSelf={ this.handleChangeSelf }/>
+            )} />
+
+          <Route exact path='/search' render={() => (
+            <SearchBooks />
             )} />
 
         </div>
