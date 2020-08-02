@@ -1,14 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import ListBookShelf from './ListBookShelf'
-
-const shelfOptions = {
-  currentlyReading: "Currently Reading",
-  wantToRead: "Want to Read",
-  read: "Read",
-  none: "None"
-};
+import ListBookShelves from './ListBookShelves'
 
 class BooksApp extends React.Component {
   state = {
@@ -20,17 +13,30 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     
-    books: {},
-
-    shelves: {}
+    books: [],
   }
 
-  changeShelf(event, book) {
+  handleChangeSelf(book, shelf) {
+    console.log(book);
+    console.log(shelf);
+    // const newShelf = event.target.value;
+    // const currShelf = book.shelf;
+    // const bookId = book.id;
+    // // console.log(`${newShelf} ${currShelf} ${bookId}`);
 
-    const newShelf = event.target.value;
-    const currShelf = book.shelf;
-    const bookId = book.id;
-    console.log(`${newShelf} ${currShelf} ${bookId}`);
+    // let currBookShelf = shelves[currShelf];
+    // let newBookShelf = shelves[newShelf];
+    // let bookToUpdate;
+
+    // bookToUpdate = currBookShelf.find((book) => book.id === bookId);
+    // currBookShelf = currBookShelf.filter((book) => book.id !== bookId);
+
+    // TODO: Handle none shelf
+    // bookToUpdate.shelf = newShelf;
+    // newBookShelf.push(bookToUpdate);
+
+    // console.log(this.state);
+//    this.setState({ shelves : shelves });
     // ContactsAPI.create(contact).then(contact => {
     //   this.setState(state => ({
     //     contacts: state.contacts.concat([ contact ])
@@ -38,42 +44,32 @@ class BooksApp extends React.Component {
     // })
   };
 
-componentDidMount() {
-    if (!Array.isArray(this.state.books)) {
-      BooksAPI.getAll()
-        .then((books) => {
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => this.setState({ books: books }));
 
-          let shelves = books.reduce((r, a) => {
-            r[a.shelf] = [...r[a.shelf] || [], a];
-            return r;
-          }, {});
+    // if (!Array.isArray(this.state.books)) {
+    //   BooksAPI.getAll()
+    //     .then((books) => {
 
-          this.setState({ books: books, shelves: shelves });
-      });
-    }
+    //       let shelves = books.reduce((r, a) => {
+    //         r[a.shelf] = [...r[a.shelf] || [], a];
+    //         return r;
+    //       }, {});
+
+    //       this.setState({ books: books, shelves: shelves });
+    //   });
+    // }
   }
 
   render() {
-    const { shelves } = this.state;
 
+    const { books } = this.state;
+
+    // console.log("1");
+    // console.log(books);
     return (
-      <div className="app">
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            {
-              Object.entries(shelves)
-                .map(([key,value]) => <ListBookShelf key={key}
-                  onChangeShelf={this.changeShelf}
-                  books={value}
-                  shelf={key}
-                  shelfOptions={shelfOptions} />)
-            }
-          </div>
-        </div>
-      </div>
+      <ListBookShelves books={ books } onHandleChangeSelf={ this.handleChangeSelf }/>
     );
   }
 }
