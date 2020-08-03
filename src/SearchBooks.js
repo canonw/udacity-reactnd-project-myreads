@@ -7,24 +7,29 @@ import ListBooks from './ListBooks';
 class SearchBooks extends Component {
 
   state = { 
-    query: '',
+    searchText: '',
     searchedBooks: [],
   }
 
   handleSearchBook = (event) => {
 
-    //console.log(event.target.value);
+    // console.log("event.target");
+    // console.log(event.target);
+    // console.log("event.target.value");
+    // console.log(event.target.value);
 
-    const query = event.target.value;
+    const searchText = event.target.value;
+    // console.log(searchText);
 
-    this.setState({ query: query })
-
-    if (query === '') {
-        this.setState({ searchedBooks: [] })
+    if (!searchText) {
+        this.setState({ searchText: '', searchedBooks: [] })
         return;
     }
 
-    BooksAPI.search(query)
+    this.setState({ searchText: searchText })
+
+
+    BooksAPI.search(searchText)
       .then(result => {
         if (!result || result.error) {
           this.setState({ searchedBooks: [] });
@@ -51,7 +56,7 @@ class SearchBooks extends Component {
 
   render() {
 
-    const { query, searchedBooks } = this.state;
+    const { searchText, searchedBooks } = this.state;
     const { shelfOptions, onHandleChangeSelf } = this.props;
 
     // console.log(searchedBooks);
@@ -71,7 +76,7 @@ class SearchBooks extends Component {
                 */}
             <input type="text"
               placeholder="Search by title or author"
-              value={ query }
+              value={ searchText }
               onChange={ this.handleSearchBook } />
 
           </div>
