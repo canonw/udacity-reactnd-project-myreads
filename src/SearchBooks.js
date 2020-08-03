@@ -29,7 +29,21 @@ class SearchBooks extends Component {
         if (!result || result.error) {
           this.setState({ searchedBooks: [] });
         } else {
-          this.setState({ searchedBooks: result });
+
+          const searchedBooks = result.map((r) => {
+            this.props.books.forEach(book => {
+                if (book.id === r.id)
+                  r.shelf = book.shelf
+
+                if(!r.shelf)
+                  r.shelf = "none"
+              })
+            return r;
+          })
+
+          this.setState({ searchedBooks: searchedBooks });
+
+          //console.log(searchedBooks);
           //console.log(result);
         }
       });
@@ -38,8 +52,9 @@ class SearchBooks extends Component {
   render() {
 
     const { query, searchedBooks } = this.state;
-    const { shelf, shelfOptions, onHandleChangeSelf } = this.props;
+    const { shelfOptions, onHandleChangeSelf } = this.props;
 
+    // console.log(searchedBooks);
 
     return (
       <div className="search-books">
@@ -57,20 +72,16 @@ class SearchBooks extends Component {
             <input type="text"
               placeholder="Search by title or author"
               value={ query }
-              onChange={this.handleSearchBook} />
+              onChange={ this.handleSearchBook } />
 
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/* <ListBooks books={ searchBooks }
+            <ListBooks books={ searchedBooks }
               shelf="read"
               shelfOptions={ shelfOptions }
-              onHandleChangeSelf={ onHandleChangeSelf }/> */}
-{
-            searchedBooks.map((b) => (<li key={ b.id }>{b.title}</li>))
-}
-<p>{ this.state.query }</p>
+              onHandleChangeSelf={ onHandleChangeSelf } />
           </ol>
         </div>
     </div>
