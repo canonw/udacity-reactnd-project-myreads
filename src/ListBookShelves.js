@@ -20,7 +20,8 @@ const ListBookShelves = props => {
           <div className="bookshelf-books">
             <ol className="books-grid">
               <ListBooks books={ books.filter(b => b.shelf === "currentlyReading")}
-                shelf="currentlyReading" shelfOptions={ shelfOptions } onHandleChangeSelf={ onHandleChangeSelf }/>
+                shelfOptions={ shelfOptions }
+                onHandleChangeSelf={ onHandleChangeSelf }/>
             </ol>
           </div>
         </div>
@@ -32,7 +33,8 @@ const ListBookShelves = props => {
           <div className="bookshelf-books">
             <ol className="books-grid">
               <ListBooks books={ books.filter(b => b.shelf === "wantToRead")}
-                shelf="wantToRead" shelfOptions={ shelfOptions } onHandleChangeSelf={ onHandleChangeSelf }/>
+                shelfOptions={ shelfOptions }
+                onHandleChangeSelf={ onHandleChangeSelf }/>
             </ol>
           </div>
         </div>
@@ -44,7 +46,6 @@ const ListBookShelves = props => {
           <div className="bookshelf-books">
             <ol className="books-grid">
               <ListBooks books={ books.filter(b => b.shelf === "read")}
-                shelf="read"
                 shelfOptions={ shelfOptions }
                 onHandleChangeSelf={ onHandleChangeSelf }/>
             </ol>

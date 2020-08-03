@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ListBooks = props => {
 
-  const { books, shelf, shelfOptions, onHandleChangeSelf } = props;
+  const { books, shelfOptions, onHandleChangeSelf } = props;
 
   let OptionTemplate = Object.keys(shelfOptions)
     //.filter(currentShelf => currentShelf !== shelf)
@@ -40,7 +40,6 @@ const ListBooks = props => {
 
 ListBooks.propTypes = {
   onHandleChangeSelf: PropTypes.func.isRequired, 
-  shelf: PropTypes.string.isRequired,
   shelfOptions: PropTypes.object.isRequired,
 };
 
